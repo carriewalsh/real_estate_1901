@@ -2,6 +2,7 @@ require "minitest/autorun"
 require "minitest/pride"
 require "./lib/house"
 require "./lib/room"
+require "pry"
 
 class HouseTest < MiniTest::Test
   def setup
@@ -47,6 +48,7 @@ class HouseTest < MiniTest::Test
     @house.add_room(@room_2)
     @house.add_room(@room_3)
     @house.add_room(@room_4)
+
     assert_equal [@room_1, @room_2], @house.category(:bedroom)
   end
 
@@ -56,6 +58,7 @@ class HouseTest < MiniTest::Test
     @house.add_room(@room_2)
     @house.add_room(@room_3)
     @house.add_room(@room_4)
+
     assert_equal [@room_4], @house.category(:basement)
   end
 
@@ -65,8 +68,38 @@ class HouseTest < MiniTest::Test
     @house.add_room(@room_2)
     @house.add_room(@room_3)
     @house.add_room(@room_4)
-    assert_equal 1900, @house.area
 
+    assert_equal 1900, @house.area
+  end
+
+
+  def test_find_price_per_square_foot
+    @house.add_room(@room_1)
+    @house.add_room(@room_2)
+    @house.add_room(@room_3)
+    @house.add_room(@room_4)
+
+    assert_equal 210.53, @house.price_per_square_foot
+  end
+
+
+  def test_rooms_sort_by_area
+    @house.add_room(@room_1)
+    @house.add_room(@room_2)
+    @house.add_room(@room_3)
+    @house.add_room(@room_4)
+
+    assert_equal [@room_4, @room_3, @room_2, @room_1], @house.rooms_sorted_by_area
+  end
+
+
+  def test_rooms_sort_by_category
+    @house.add_room(@room_1)
+    @house.add_room(@room_2)
+    @house.add_room(@room_3)
+    @house.add_room(@room_4)
+
+    assert_equal @house.rooms_hash , @house.rooms_by_category
   end
 
 end

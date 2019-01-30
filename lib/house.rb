@@ -1,9 +1,10 @@
 class House
-  attr_reader :price, :address, :rooms
+  attr_reader :price, :address, :rooms, :rooms_hash
   def initialize(price,address)
     @price = price
     @address = address
     @rooms = []
+    @rooms_hash = Hash.new {|hash,key| hash[key] = []}
   end
 
 
@@ -29,6 +30,28 @@ class House
       area += room.area
     end
     return area
+  end
+
+
+  def price_per_square_foot
+    price = @price[1..@price.length].to_f
+    (price / area).round(2)
+  end
+
+
+  def rooms_sorted_by_area
+    area_array = @rooms.sort_by do |room|
+      room.area
+    end
+    area_array.reverse
+  end
+
+
+  def rooms_by_category
+    @rooms.each do |room|
+      @rooms_hash[room.category] << room
+    end
+    @rooms_hash
   end
 
 end
