@@ -41,4 +41,32 @@ class HouseTest < MiniTest::Test
     assert_equal [@room_1, @room_2, @room_3, @room_4], @house.rooms
   end
 
+
+  def test_can_select_category_of_room_in_house
+    @house.add_room(@room_1)
+    @house.add_room(@room_2)
+    @house.add_room(@room_3)
+    @house.add_room(@room_4)
+    assert_equal [@room_1, @room_2], @house.category(:bedroom)
+  end
+
+
+  def test_can_select_different_category_of_room_in_house
+    @house.add_room(@room_1)
+    @house.add_room(@room_2)
+    @house.add_room(@room_3)
+    @house.add_room(@room_4)
+    assert_equal [@room_4], @house.category(:basement)
+  end
+
+
+  def test_can_find_area_of_house
+    @house.add_room(@room_1)
+    @house.add_room(@room_2)
+    @house.add_room(@room_3)
+    @house.add_room(@room_4)
+    assert_equal 1900, @house.area
+
+  end
+
 end
