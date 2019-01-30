@@ -20,7 +20,7 @@ class House
         category_arr << room
       end
     end
-    return category_arr
+    category_arr
   end
 
 
@@ -29,7 +29,7 @@ class House
     @rooms.each do |room|
       area += room.area
     end
-    return area
+    area
   end
 
 
